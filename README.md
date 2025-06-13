@@ -23,5 +23,12 @@ chmod +x install.sh
 
 For other distros, install the required packages then:
 ```bash
+chmod +x install.sh
 ./install.sh copy
+```
+
+For nvim only:
+```bash
+chmod +x install.sh
+./install.sh nvim
 ```
