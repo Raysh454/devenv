@@ -1,0 +1,22 @@
+
+[env]
+TERM = "alacritty"
+
+[font]
+size = 10.0
+
+[font.normal]
+family = "JetBrainsMono"
+
+
+[keyboard]
+bindings = [
+  { key = "N", mods = "Control|Shift", action = "CreateNewWindow" }
+]
+
+[general]
+import = ["~/.config/alacritty/catppuccin/catppuccin-macchiato.toml"]
+#import = ["~/.cache/wal/colors-alacritty"]
+
+[window]
+opacity = 0.9
