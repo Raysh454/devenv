@@ -53,6 +53,8 @@ install_nvim() {
         echo "[!] Neither pacman nor apt found. Please install dependencies manually."
         exit 1
     fi
+
+    cp -r ./conf/nvim/ ~/.config/nvim
 }
 
 # Main
