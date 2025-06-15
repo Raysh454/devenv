@@ -1,7 +1,71 @@
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+-- Refactoring rebinds
+local on_attach = function(client, bufnr)
+    -- Example: inside your LSP on_attach(client, bufnr)
+    local opts = { noremap = true, silent = true, buffer = bufnr }
+
+    -- Go to definition
+    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+
+    -- Go to declaration
+    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+
+    -- Go to implementation
+    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+
+    -- Go to type definition
+    vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, opts)
+
+    -- Hover documentation
+    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+
+    -- Signature help
+    vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+
+    -- Rename symbol
+    vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
+
+    -- Code actions
+    vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
+    vim.keymap.set('v', '<leader>ca', vim.lsp.buf.code_action, opts)
+
+    -- Show diagnostics (float)
+    vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, opts)
+
+    -- Go to next/previous diagnostic
+    vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
+    vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
+
+    -- Format document (async)
+    vim.keymap.set('n', '<leader>f', function()
+        vim.lsp.buf.format { async = true }
+    end, opts)
+end
+
+local servers = { "pyright", "lua_ls", "clangd", "java_language_server", "eslint", "rust_analyzer", "nimls", "zls", "gopls", "omnisharp", "ts_ls", "cssls" }
+
 require("mason-lspconfig").setup({
-    ensure_installed = { "pyright", "lua_ls", "clangd", "java_language_server", "eslint", "rust_analyzer", "nimls", "zls", "gopls", "omnisharp", "ts_ls", "cssls" },
-    log_level = vim.log.levels.DEBUG,
+    ensure_installed = servers,
 })
+
+local nvim_lsp = require('lspconfig')
+
+for _, lsp in ipairs(servers) do
+nvim_lsp[lsp].setup {
+    capabilities = capabilities,
+    on_attach = on_attach,
+}
+end
+
+-- require("mason-lspconfig").setup_handlers({
+--    function(server_name)
+--        require("lspconfig")[server_name].setup({
+--            capabilities = capabilities,
+--            on_attach = on_attach,
+--        })
+--    end,
+--})
 
 local cmp = require('cmp')
 local cmp_autopairs = require("nvim-autopairs.completion.cmp");
@@ -80,99 +144,3 @@ cmp.event:on(
     'confirm_done',
     cmp_autopairs.on_confirm_done()
 )
-
--- Refactoring rebinds
-local on_attach = function(client, bufnr)
-    -- Example: inside your LSP on_attach(client, bufnr)
-    local opts = { noremap = true, silent = true, buffer = bufnr }
-
-    -- Go to definition
-    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-
-    -- Go to declaration
-    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-
-    -- Go to implementation
-    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-
-    -- Go to type definition
-    vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, opts)
-
-    -- Hover documentation
-    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-
-    -- Signature help
-    vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
-
-    -- Rename symbol
-    vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
-
-    -- Code actions
-    vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
-    vim.keymap.set('v', '<leader>ca', vim.lsp.buf.code_action, opts)
-
-    -- Show diagnostics (float)
-    vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, opts)
-
-    -- Go to next/previous diagnostic
-    vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
-    vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
-
-    -- Format document (async)
-    vim.keymap.set('n', '<leader>f', function()
-        vim.lsp.buf.format { async = true }
-    end, opts)
-end
-
--- Set up lspconfig.
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
--- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
-require('lspconfig').pyright.setup {
-    capabilities = capabilities,
-    on_attach = on_attach,
-}
-require('lspconfig').lua_ls.setup {
-    capabilities = capabilities,
-    on_attach = on_attach,
-}
-require('lspconfig').clangd.setup {
-    capabilities = capabilities,
-    on_attach = on_attach,
-}
-require('lspconfig').java_language_server.setup {
-    capabilities = capabilities,
-    on_attach = on_attach,
-}
-require('lspconfig').eslint.setup {
-    capabilities = capabilities,
-    on_attach = on_attach,
-}
-require('lspconfig').rust_analyzer.setup({
-    capabilities = capabilities,
-    on_attach = on_attach,
-    filetype = { "rust" },
-})
-require('lspconfig').nimls.setup({
-    capabilities = capabilities,
-    on_attach = on_attach,
-})
-require('lspconfig').zls.setup({
-    capabilities = capabilities,
-    on_attach = on_attach,
-})
-require('lspconfig').gopls.setup({
-    capabilities = capabilities,
-    on_attach = on_attach,
-})
-require('lspconfig').omnisharp.setup({
-    capabilities = capabilities,
-    on_attach = on_attach,
-})
-require('lspconfig').ts_ls.setup({
-    capabilities = capabilities,
-    on_attach = on_attach,
-})
-require('lspconfig').cssls.setup({
-    capabilities = capabilities,
-    on_attach = on_attach,
-})
