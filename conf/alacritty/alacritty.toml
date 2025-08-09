@@ -15,7 +15,7 @@ bindings = [
 ]
 
 [general]
-import = ["~/.config/alacritty/catppuccin/catppuccin-macchiato.toml"]
+import = ["/home/sherry/.config/alacritty/catppuccin/catppuccin-macchiato.toml"]
 #import = ["~/.cache/wal/colors-alacritty"]
 
 [window]

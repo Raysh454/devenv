@@ -19,6 +19,7 @@ Plugins = {
     {'windwp/nvim-autopairs'},
     {'puremourning/vimspector'},
     {'windwp/nvim-ts-autotag'},
+    --{'github/copilot.vim'},
     {
         "luckasRanarison/tailwind-tools.nvim",
         name = "tailwind-tools",

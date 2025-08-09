@@ -43,29 +43,17 @@ local on_attach = function(client, bufnr)
     end, opts)
 end
 
-local servers = { "pyright", "lua_ls", "clangd", "java_language_server", "eslint", "rust_analyzer", "nimls", "zls", "gopls", "omnisharp", "ts_ls", "cssls" }
-
 require("mason-lspconfig").setup({
-    ensure_installed = servers,
+    ensure_installed = { "pyright", "lua_ls", "clangd", "java_language_server", "eslint", "rust_analyzer", "nimls", "zls", "gopls", "omnisharp", "ts_ls", "cssls", "intelephense" },
+    handlers = {
+        function (server_name)
+            require("lspconfig")[server_name].setup {
+                capabilities = capabilities,
+                on_attach = on_attach
+            }
+        end
+    }
 })
-
-local nvim_lsp = require('lspconfig')
-
-for _, lsp in ipairs(servers) do
-nvim_lsp[lsp].setup {
-    capabilities = capabilities,
-    on_attach = on_attach,
-}
-end
-
--- require("mason-lspconfig").setup_handlers({
---    function(server_name)
---        require("lspconfig")[server_name].setup({
---            capabilities = capabilities,
---            on_attach = on_attach,
---        })
---    end,
---})
 
 local cmp = require('cmp')
 local cmp_autopairs = require("nvim-autopairs.completion.cmp");
