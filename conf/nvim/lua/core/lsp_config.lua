@@ -43,16 +43,13 @@ local on_attach = function(client, bufnr)
     end, opts)
 end
 
+vim.lsp.config("*", {
+    capabilities = vim.lsp.protocol.make_client_capabilities(),
+    on_attach = on_attach
+})
+
 require("mason-lspconfig").setup({
     ensure_installed = { "pyright", "lua_ls", "clangd", "java_language_server", "eslint", "rust_analyzer", "nimls", "zls", "gopls", "omnisharp", "ts_ls", "cssls", "intelephense" },
-    handlers = {
-        function (server_name)
-            require("lspconfig")[server_name].setup {
-                capabilities = capabilities,
-                on_attach = on_attach
-            }
-        end
-    }
 })
 
 local cmp = require('cmp')
