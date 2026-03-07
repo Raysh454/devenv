@@ -5,7 +5,6 @@ Plugins = {
 	{"neovim/nvim-lspconfig"},
 	{'nvim-telescope/telescope.nvim', dependencies = {'nvim-lua/plenary.nvim'}},
 	{'nvim-treesitter/nvim-treesitter'},
-	{'nvim-treesitter/playground'},
 	{'theprimeagen/harpoon'},
 	{'mbbill/undotree'},
 	{'tpope/vim-fugitive'},
@@ -20,17 +19,6 @@ Plugins = {
     {'puremourning/vimspector'},
     {'windwp/nvim-ts-autotag'},
     --{'github/copilot.vim'},
-    {
-        "luckasRanarison/tailwind-tools.nvim",
-        name = "tailwind-tools",
-        build = ":UpdateRemotePlugins",
-        dependencies = {
-            "nvim-treesitter/nvim-treesitter",
-            "nvim-telescope/telescope.nvim", -- optional
-            "neovim/nvim-lspconfig", -- optional
-        },
-        opts = {} -- your configuration
-    },
     {
     "ThePrimeagen/refactoring.nvim",
     dependencies = {
