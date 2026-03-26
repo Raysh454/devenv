@@ -7,7 +7,7 @@ BLURRED_WP="$WALLPAPER_DIR/current_blurred"
 BLUR="50x30"
 
 # Get current wallpaper path from swww
-current_wallpaper=$(swww query | grep -oP 'image: \K.*')
+current_wallpaper=$(awww query | grep -oP 'image: \K.*')
 
 # Select a random wallpaper that is not the current one
 wallpaper=$(find "$WALLPAPER_DIR" -type f \( -iname '*.jpg' -o -iname '*.png' \) ! -iname '*blurred*' \
@@ -26,7 +26,7 @@ wal -b "#24273A" -q -i "$wallpaper"
 source "$HOME/.cache/wal/colors.sh"
 
 # Set wallpaper with swww
-swww img "$wallpaper" --transition-type=grow --transition-pos top-right
+awww img "$wallpaper" --transition-type=grow --transition-pos top-right
 
 # Launch waybar if launcher script exists
 [ -x "$HOME/.config/waybar/launch.sh" ] && "$HOME/.config/waybar/launch.sh"
