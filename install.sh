@@ -14,7 +14,9 @@ PACKAGES=(
   swww
   network-manager-applet
   dunst
-  flameshot
+  grim
+  slurp
+  swappy
   scrot
   zig
   nvim

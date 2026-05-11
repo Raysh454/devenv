@@ -10,7 +10,9 @@
 - swww
 - nm-applet
 - dunst
-- flameshot
+- grim
+- slurp
+- swappy
 - scrot
 
 ## Installation
